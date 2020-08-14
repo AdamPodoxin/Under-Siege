@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAbility : MonoBehaviour
+public class PlayerInventoryAction : MonoBehaviour
 {
     public void Use()
     {

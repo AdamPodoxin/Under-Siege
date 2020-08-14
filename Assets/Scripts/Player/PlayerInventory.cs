@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public PlayerAttack[] playerAttacks;
-    public PlayerAbility[] playerAbilities;
-    public PlayerItem[] playerItems;
+    public PlayerInventoryAction[] playerAttacks;
+    public PlayerInventoryAction[] playerAbilities;
+    public PlayerInventoryAction[] playerItems;
 
     public void UseAttack(int index)
     {
