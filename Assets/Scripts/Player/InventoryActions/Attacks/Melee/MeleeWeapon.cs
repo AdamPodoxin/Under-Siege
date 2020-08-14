@@ -6,17 +6,21 @@ public class MeleeWeapon : PlayerInventoryAction
 {
     public MeleeWeaponStats stats;
 
-    private Animator animator;
-    private GameObject childObject;
+    private Animator animator, swipeAnimator;
+    private GameObject childObject, swipeObject;
 
     private PlayerCombat playerCombat;
 
     private int weaponIndex;
 
-    private void OnEnable()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
+
         childObject = transform.GetChild(0).gameObject;
+
+        swipeObject = GameObject.Find("Melee_Swipe");
+        swipeAnimator = swipeObject.GetComponent<Animator>();
 
         playerCombat = FindObjectOfType<PlayerCombat>();
 
@@ -28,9 +32,11 @@ public class MeleeWeapon : PlayerInventoryAction
         base.Use();
 
         childObject.SetActive(true);
+        swipeObject.SetActive(true);
         playerCombat.CanAct = false;
 
         animator.Play("Attack");
+        swipeAnimator.Play("Melee_Swipe");
 
         StartCoroutine(UseCoroutine());
     }
@@ -38,6 +44,7 @@ public class MeleeWeapon : PlayerInventoryAction
     public void FinishAnimation()
     {
         childObject.SetActive(false);
+        swipeObject.SetActive(false);
     }
 
     private IEnumerator UseCoroutine()
