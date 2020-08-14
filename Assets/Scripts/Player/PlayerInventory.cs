@@ -10,34 +10,17 @@ public class PlayerInventory : MonoBehaviour
 
     public void UseAttack(int index)
     {
-        try
-        {
-            playerAttacks[index].Use();
-        }
-        catch { }
+        playerAttacks[index].Use();
 
-        print("Use attack " + index);
     }
 
     public void UseAbility(int index)
     {
-        try
-        {
-            playerAbilities[index].Use();
-        }
-        catch { }
-
-        print("Use ability " + index);
+        playerAbilities[index].Use();
     }
 
     public void UseItem(int index)
     {
-        try
-        {
-            playerItems[index].Use();
-        }
-        catch { }
-
-        print("Use item " + index);
+        playerItems[index].Use();
     }
 }

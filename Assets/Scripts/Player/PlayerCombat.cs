@@ -20,6 +20,22 @@ public class PlayerCombat : MonoBehaviour
     {
         playerInventory = GetComponent<PlayerInventory>();
         playerMovement = GetComponent<PlayerMovement>();
+
+        foreach (GameObject o in attacks)
+        {
+            o.SetActive(true);
+            o.SetActive(false);
+        }
+        foreach (GameObject o in abilities)
+        {
+            o.SetActive(true);
+            o.SetActive(false);
+        }
+        foreach (GameObject o in items)
+        {
+            o.SetActive(true);
+            o.SetActive(false);
+        }
     }
 
     private void Update()
@@ -65,6 +81,12 @@ public class PlayerCombat : MonoBehaviour
     {
         action.SetActive(true);
         action.transform.eulerAngles = eulerAngles;
+    }
+
+    public void FinishAttack(int index)
+    {
+        attacks[index].SetActive(false);
+        CanAct = true;
     }
 
     private Vector3 CalculateEulerAnglesFromDirection(Vector2 direction)
