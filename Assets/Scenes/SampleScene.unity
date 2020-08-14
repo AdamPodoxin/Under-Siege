@@ -398,3 +398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61eb09795fac4cc498f4f380354b0b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAttacks: []
+  playerAbilities: []
+  playerItems: []
