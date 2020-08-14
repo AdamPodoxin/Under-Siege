@@ -6,6 +6,13 @@ public class PlayerCombat : MonoBehaviour
 {
     public bool CanAttack { get; set; } = true;
 
+    private PlayerInventory playerInventory;
+
+    private void Start()
+    {
+        playerInventory = GetComponent<PlayerInventory>();
+    }
+
     private void Update()
     {
         if (Input.anyKeyDown)
@@ -44,31 +51,31 @@ public class PlayerCombat : MonoBehaviour
 
     private void PrimaryAttack()
     {
-        print("PrimaryAttack");
+        playerInventory.UseAttack(0);
     }
 
     private void SecondaryAttack()
     {
-        print("SecondaryAttack");
+        playerInventory.UseAttack(1);
     }
 
     private void PrimaryAbility()
     {
-        print("PrimaryAbility");
+        playerInventory.UseAbility(0);
     }
 
     private void SecondaryAbility()
     {
-        print("SecondaryAbility");
+        playerInventory.UseAbility(1);
     }
 
     private void PrimaryItem()
     {
-        print("PrimaryItem");
+        playerInventory.UseItem(0);
     }
 
     private void SecondaryItem()
     {
-        print("SecondaryItem");
+        playerInventory.UseItem(1);
     }
 }
