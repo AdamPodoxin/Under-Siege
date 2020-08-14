@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool CanMove { get; set; } = true;
 
+    private Vector2 movement;
+    public Vector2 MovementDirection { get { return movement; } }
+
     private Rigidbody2D rb;
 
     private Animator animator;
@@ -25,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (CanMove)
         {
-            Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             rb.velocity = movement * moveSpeed;
 
             bool isMoving = movement.x != 0f || movement.y != 0;
