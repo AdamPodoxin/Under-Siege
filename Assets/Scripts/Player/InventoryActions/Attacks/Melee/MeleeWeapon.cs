@@ -50,15 +50,20 @@ public class MeleeWeapon : PlayerInventoryAction
         StartCoroutine(UseCoroutine());
     }
 
+    private IEnumerator UseCoroutine()
+    {
+        yield return new WaitForSeconds(stats.castTime);
+        playerCombat.FinishAttack(weaponIndex);
+    }
+
     public void FinishAnimation()
     {
         childObject.SetActive(false);
         swipeObject.SetActive(false);
     }
 
-    private IEnumerator UseCoroutine()
+    public void CollisionWithEnemy(Collider2D collision)
     {
-        yield return new WaitForSeconds(stats.castTime);
-        playerCombat.FinishAttack(weaponIndex);
+        print(collision);
     }
 }
