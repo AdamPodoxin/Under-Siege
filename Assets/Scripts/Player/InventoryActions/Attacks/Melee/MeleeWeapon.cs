@@ -21,6 +21,7 @@ public class MeleeWeapon : PlayerInventoryAction
 
         swipeObject = GameObject.Find("Melee_Swipe");
         swipeAnimator = swipeObject.GetComponent<Animator>();
+        swipeObject.transform.localPosition = new Vector2(swipeObject.transform.localPosition.x, stats.length);
 
         playerCombat = FindObjectOfType<PlayerCombat>();
 

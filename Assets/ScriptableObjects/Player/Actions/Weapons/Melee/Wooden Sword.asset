@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54fbe48d961cbb549ba1ff968efa1fb4, type: 3}
-  m_Name: Longsword
+  m_Name: Wooden Sword
   m_EditorClassIdentifier: 
   affinity: 0
   priority: 0
-  name: Longsword
-  description: The most basic Warrior weapon. Powerful, but slow, this will be your
-    best companion for a while.
-  damage: 30
-  castTime: 1.5
-  level: 2
-  cost: 100
-  length: 1.2
+  name: Wooden Sword
+  description: The starter weapon for the Warrior class. Provides all that a beginner
+    needs.
+  damage: 10
+  castTime: 1
+  level: 1
+  cost: 0
+  length: 0.9

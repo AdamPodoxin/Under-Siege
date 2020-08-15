@@ -15,4 +15,6 @@ public class MeleeWeaponStats : ScriptableObject
     public float castTime;
 
     public int level = 1;
+    public int cost = 0;
+    public float length = 1.5f;
 }
