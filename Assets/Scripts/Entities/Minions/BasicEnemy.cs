@@ -81,7 +81,8 @@ public class BasicEnemy : MonoBehaviour
 
     public void AttackTarget()
     {
-        target.SendMessage("TakeDamage", damage);
+        if (target != null)
+            target.SendMessage("TakeDamage", damage);
     }
 
     public void SetTarget(Component targetComponent)

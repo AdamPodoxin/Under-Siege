@@ -187,3 +187,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: b66b3fc82b277984fbd35d6b8700632e, type: 2}
+  childObject: {fileID: 4127212839893364951}

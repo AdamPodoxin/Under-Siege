@@ -46,11 +46,6 @@ public class PlayerStats : MonoBehaviour
     {
         healthBarImage.fillAmount = Mathf.Lerp(healthBarImage.fillAmount, targetHealthFillAmount, barChangeSpeed * Time.deltaTime);
         strengthBarImage.fillAmount = Mathf.Lerp(strengthBarImage.fillAmount, targetStrengthFillAmount, barChangeSpeed * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.G)) TakeDamage(5);
-        else if (Input.GetKeyDown(KeyCode.H)) TakeHealing(2);
-        else if (Input.GetKeyDown(KeyCode.J)) ChangeStrength(-5);
-        else if (Input.GetKeyDown(KeyCode.K)) ChangeStrength(2);
     }
 
     private void ChangeHealth(int change)

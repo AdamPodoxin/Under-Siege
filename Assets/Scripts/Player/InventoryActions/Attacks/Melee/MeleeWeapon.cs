@@ -6,33 +6,45 @@ public class MeleeWeapon : PlayerInventoryAction
 {
     public MeleeWeaponStats stats;
 
-    private Animator animator, swipeAnimator;
-    private GameObject childObject, swipeObject;
+    protected Animator animator, swipeAnimator;
+    protected GameObject childObject, swipeObject;
 
-    private PlayerCombat playerCombat;
-    private PlayerStats playerStats;
+    protected PlayerCombat playerCombat;
+    protected PlayerStats playerStats;
 
-    private int weaponIndex;
-    private int damage;
+    protected int weaponIndex;
+    protected int damage;
 
-    private void Awake()
+    protected void OnEnable()
     {
-        animator = GetComponent<Animator>();
+        if (animator == null)
+            animator = GetComponent<Animator>();
 
-        childObject = transform.GetChild(0).gameObject;
+        if (childObject == null)
+            childObject = transform.GetChild(0).gameObject;
 
-        swipeObject = GameObject.Find("Melee_Swipe");
-        swipeAnimator = swipeObject.GetComponent<Animator>();
-        swipeObject.transform.localPosition = new Vector2(swipeObject.transform.localPosition.x, stats.length);
-
-        playerCombat = FindObjectOfType<PlayerCombat>();
-
-        playerStats = FindObjectOfType<PlayerStats>();
-        if (stats.affinity.Equals(GlobalEnums.Affinity.Warrior) && playerStats.affinity.Equals(GlobalEnums.Affinity.Warrior))
+        if (swipeObject == null)
         {
-            damage = Mathf.RoundToInt(Mathf.Pow(playerStats.affinityLevel - 1, 1.2f)) + stats.damage;
+            swipeObject = GameObject.Find("Melee_Swipe");
+            swipeAnimator = swipeObject.GetComponent<Animator>();
+            swipeObject.transform.localPosition = new Vector2(swipeObject.transform.localPosition.x, stats.length);
         }
 
+        if (playerCombat == null)
+            playerCombat = FindObjectOfType<PlayerCombat>();
+
+        if (playerStats == null)
+        {
+            playerStats = FindObjectOfType<PlayerStats>();
+            if (stats.affinity.Equals(GlobalEnums.Affinity.Warrior) && playerStats.affinity.Equals(GlobalEnums.Affinity.Warrior))
+            {
+                damage = Mathf.RoundToInt(Mathf.Pow(playerStats.affinityLevel - 1, 1.2f)) + stats.damage;
+            }
+        }
+    }
+
+    protected void Start()
+    {
         weaponIndex = stats.priority.Equals(GlobalEnums.ActionPriority.Primary) ? 0 : 1;
     }
 
@@ -44,13 +56,13 @@ public class MeleeWeapon : PlayerInventoryAction
         swipeObject.SetActive(true);
         playerCombat.CanAct = false;
 
-        animator.Play("Attack");
-        swipeAnimator.Play("Melee_Swipe");
+        animator.Play("Attack", -1, 0f);
+        swipeAnimator.Play("Melee_Swipe", -1, 0f);
 
         StartCoroutine(UseCoroutine());
     }
 
-    private IEnumerator UseCoroutine()
+    protected IEnumerator UseCoroutine()
     {
         yield return new WaitForSeconds(stats.castTime);
         playerCombat.FinishAttack(weaponIndex);
