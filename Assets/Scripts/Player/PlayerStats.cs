@@ -9,19 +9,48 @@ public class PlayerStats : MonoBehaviour
     public int affinityLevel = 1;
 
     public int health = 100;
-
     private int maxHealth;
+
+    public int strength = 100;
+    private int maxStrength;
 
     [Space]
 
     public Image healthBarImage;
     public Text healthText;
 
+    private float targetHealthFillAmount;
+
+    [Space]
+
+    public Image strengthBarImage;
+    public Text strengthText;
+
+    private float targetStrengthFillAmount;
+
+    [Space]
+
     public StatusValuePopupText statusValuePopupText;
+    public float barChangeSpeed = 5f;
 
     private void Start()
     {
         maxHealth = health;
+        targetHealthFillAmount = (float)health / maxHealth;
+
+        maxStrength = strength;
+        targetStrengthFillAmount = (float)strength / maxStrength;
+    }
+
+    private void Update()
+    {
+        healthBarImage.fillAmount = Mathf.Lerp(healthBarImage.fillAmount, targetHealthFillAmount, barChangeSpeed * Time.deltaTime);
+        strengthBarImage.fillAmount = Mathf.Lerp(strengthBarImage.fillAmount, targetStrengthFillAmount, barChangeSpeed * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.G)) TakeDamage(5);
+        else if (Input.GetKeyDown(KeyCode.H)) TakeHealing(2);
+        else if (Input.GetKeyDown(KeyCode.J)) ChangeStrength(-5);
+        else if (Input.GetKeyDown(KeyCode.K)) ChangeStrength(2);
     }
 
     private void ChangeHealth(int change)
@@ -38,7 +67,7 @@ public class PlayerStats : MonoBehaviour
             health = maxHealth;
         }
 
-        healthBarImage.fillAmount = (float)health / maxHealth;
+        targetHealthFillAmount = (float)health / maxHealth;
         healthText.text = $"{health}/{maxHealth}";
     }
 
@@ -57,5 +86,22 @@ public class PlayerStats : MonoBehaviour
     public void Die()
     {
         print("Player Died");
+    }
+
+    private void ChangeStrength(int change)
+    {
+        strength += change;
+
+        if (strength <= 0)
+        {
+            strength = 0;
+        }
+        else if (strength > maxStrength)
+        {
+            strength = maxStrength;
+        }
+
+        targetStrengthFillAmount = (float)strength / maxStrength;
+        strengthText.text = $"{strength}/{maxStrength}";
     }
 }
