@@ -30,7 +30,7 @@ public class MeleeWeapon : PlayerInventoryAction
         playerStats = FindObjectOfType<PlayerStats>();
         if (stats.affinity.Equals(GlobalEnums.Affinity.Warrior) && playerStats.affinity.Equals(GlobalEnums.Affinity.Warrior))
         {
-            damage = playerStats.affinityLevel - 1 + stats.damage;
+            damage = Mathf.RoundToInt(Mathf.Pow(playerStats.affinityLevel - 1, 1.2f)) + stats.damage;
         }
 
         weaponIndex = stats.priority.Equals(GlobalEnums.ActionPriority.Primary) ? 0 : 1;
@@ -64,6 +64,6 @@ public class MeleeWeapon : PlayerInventoryAction
 
     public void CollisionWithEnemy(Collider2D collision)
     {
-        print(collision);
+        collision.GetComponent<BasicEnemy>().TakeDamage(damage);
     }
 }

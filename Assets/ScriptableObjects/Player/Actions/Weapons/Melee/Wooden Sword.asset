@@ -21,4 +21,4 @@ MonoBehaviour:
   castTime: 1
   level: 1
   cost: 0
-  length: 0.9
+  length: 0.75
