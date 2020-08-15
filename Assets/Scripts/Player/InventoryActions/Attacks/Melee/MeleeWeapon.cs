@@ -10,8 +10,10 @@ public class MeleeWeapon : PlayerInventoryAction
     private GameObject childObject, swipeObject;
 
     private PlayerCombat playerCombat;
+    private PlayerStats playerStats;
 
     private int weaponIndex;
+    private int damage;
 
     private void Awake()
     {
@@ -24,6 +26,12 @@ public class MeleeWeapon : PlayerInventoryAction
         swipeObject.transform.localPosition = new Vector2(swipeObject.transform.localPosition.x, stats.length);
 
         playerCombat = FindObjectOfType<PlayerCombat>();
+
+        playerStats = FindObjectOfType<PlayerStats>();
+        if (stats.affinity.Equals(GlobalEnums.Affinity.Warrior) && playerStats.affinity.Equals(GlobalEnums.Affinity.Warrior))
+        {
+            damage = playerStats.affinityLevel - 1 + stats.damage;
+        }
 
         weaponIndex = stats.priority.Equals(GlobalEnums.ActionPriority.Primary) ? 0 : 1;
     }
