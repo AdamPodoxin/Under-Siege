@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRangeCollider : MonoBehaviour
+public class EnemyAttackCollider : MonoBehaviour
 {
     private BasicEnemy parent;
 
@@ -15,7 +15,7 @@ public class EnemyRangeCollider : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            parent.SetTarget(collision.GetComponent<PlayerStats>());
+            parent.StartAttack();
         }
     }
 
@@ -23,7 +23,7 @@ public class EnemyRangeCollider : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            parent.SetTarget(null);
+            parent.StopAttack();
         }
     }
 }

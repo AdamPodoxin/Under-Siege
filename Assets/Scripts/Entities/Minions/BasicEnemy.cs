@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +11,12 @@ public class BasicEnemy : MonoBehaviour
     private int maxHealth;
 
     public int damage = 2;
+    public GlobalEnums.DamageType damageType;
     public float attackTime = 1.2f;
+    public float walkSpeed = 2.6f;
 
-    public bool InRangeOfTarget { get; set; }
+    public bool IsAttackingTarget { get; set; }
+    public bool IsFollowingTarget { get; set; }
     protected bool isDead = false;
 
     protected string state = "Idle";
@@ -36,39 +40,70 @@ public class BasicEnemy : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        if (IsFollowingTarget)
+        {
+            transform.Translate((target.transform.position - transform.position).normalized * walkSpeed * Time.deltaTime);
+        }
+    }
+
     protected IEnumerator AttackCoroutine()
     {
-        if (!isDead && target != null)
+        if (!isDead && target != null && !IsAttackingTarget)
         {
+            IsAttackingTarget = true;
             animator.Play("Attack", -1, 0f);
 
             yield return new WaitForSeconds(attackTime);
 
-            if (state.Equals("Attack") && !isDead)
+            if (state.Equals("Attack") && !isDead && target != null && !IsAttackingTarget)
             {
                 StartCoroutine(AttackCoroutine());
             }
         }
     }
 
-    protected void SetState(string newState)
+    public void FinishAttackAnimation()
     {
-        state = newState;
-        animator.Play(newState, -1, 0f);
+        IsAttackingTarget = false;
     }
 
-    public void TakeDamage(int damage)
+    protected void SetState(string newState)
     {
-        health -= damage;
-
-        if (health <= 0)
+        if (!isDead)
         {
-            health = 0;
-            Die();
+            state = newState;
+            animator.Play(newState, -1, 0f);
         }
+    }
 
-        healthBarImage.fillAmount = (float)health / maxHealth;
-        statusValuePopupText.ShowText($"-{damage}", Color.red);
+    protected void SetDeathState()
+    {
+        state = "Dead";
+        animator.Play(state, -1, 0f);
+    }
+
+    public void FinishDeathAnimation()
+    {
+        Destroy(gameObject);
+    }
+
+    public void TakeDamage(DamageInfo damageInfo)
+    {
+        if (!isDead)
+        {
+            health -= damageInfo.damage;
+
+            if (health <= 0)
+            {
+                health = 0;
+                Die();
+            }
+
+            healthBarImage.fillAmount = (float)health / maxHealth;
+            statusValuePopupText.ShowText($"-{damageInfo.damage}", Color.red);
+        }
     }
 
     public void Die()
@@ -76,13 +111,18 @@ public class BasicEnemy : MonoBehaviour
         StopAllCoroutines();
         isDead = true;
 
+        StopWalk();
+        StopAttack();
+
+        SetDeathState();
+
         print(name + " died");
     }
 
     public void AttackTarget()
     {
         if (target != null)
-            target.SendMessage("TakeDamage", damage);
+            target.SendMessage("TakeDamage", new DamageInfo(damage, damageType));
     }
 
     public void SetTarget(Component targetComponent)
@@ -90,23 +130,42 @@ public class BasicEnemy : MonoBehaviour
         if (!isDead)
         {
             target = targetComponent;
-
-            if (targetComponent == null)
-            {
-                InRangeOfTarget = false;
-                SetState("Idle");
-
-                StopCoroutine(AttackCoroutine());
-            }
-            else
-            {
-                InRangeOfTarget = true;
-                SetState("Attack");
-
-                spriteRenderer.flipX = targetComponent.transform.position.x > transform.position.x;
-
-                StartCoroutine(AttackCoroutine());
-            }
         }
+    }
+
+    public void StartAttack()
+    {
+        if (!isDead)
+        {
+            StopWalk();
+
+            SetState("Attack");
+
+            spriteRenderer.flipX = target.transform.position.x > transform.position.x;
+
+            StartCoroutine(AttackCoroutine());
+        }
+    }
+
+    public void StopAttack()
+    {
+        IsAttackingTarget = false;
+        StopCoroutine(AttackCoroutine());
+        StartWalk();
+    }
+
+    public void StartWalk()
+    {
+        if (!isDead)
+        {
+            IsFollowingTarget = true;
+            SetState("Walk");
+        }
+    }
+
+    public void StopWalk()
+    {
+        IsFollowingTarget = false;
+        SetState("Idle");
     }
 }

@@ -66,10 +66,10 @@ public class PlayerStats : MonoBehaviour
         healthText.text = $"{health}/{maxHealth}";
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(DamageInfo damageInfo)
     {
-        ChangeHealth(-damage);
-        statusValuePopupText.ShowText($"-{damage}", Color.red);
+        ChangeHealth(-damageInfo.damage);
+        statusValuePopupText.ShowText($"-{damageInfo.damage}", Color.red);
     }
 
     public void TakeHealing(int healing)

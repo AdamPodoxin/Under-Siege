@@ -76,6 +76,6 @@ public class MeleeWeapon : PlayerInventoryAction
 
     public void CollisionWithEnemy(Collider2D collision)
     {
-        collision.GetComponent<BasicEnemy>().TakeDamage(damage);
+        collision.GetComponent<BasicEnemy>().TakeDamage(new DamageInfo(damage, stats.damageType));
     }
 }

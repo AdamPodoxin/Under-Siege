@@ -7,6 +7,7 @@ public class MeleeWeaponStats : ScriptableObject
 {
     public GlobalEnums.Affinity affinity;
     public GlobalEnums.ActionPriority priority;
+    public GlobalEnums.DamageType damageType;
 
     public new string name;
     public string description;
