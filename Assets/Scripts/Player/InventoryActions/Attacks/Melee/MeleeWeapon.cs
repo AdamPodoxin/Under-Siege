@@ -36,10 +36,10 @@ public class MeleeWeapon : PlayerInventoryAction
         if (playerStats == null)
         {
             playerStats = FindObjectOfType<PlayerStats>();
+
+            damage = stats.damage;
             if (stats.affinity.Equals(GlobalEnums.Affinity.Warrior) && playerStats.affinity.Equals(GlobalEnums.Affinity.Warrior))
-            {
-                damage = Mathf.RoundToInt(Mathf.Pow(playerStats.affinityLevel - 1, 1.2f)) + stats.damage;
-            }
+                damage += Mathf.RoundToInt(Mathf.Pow(playerStats.affinityLevel - 1, 1.2f));
         }
     }
 

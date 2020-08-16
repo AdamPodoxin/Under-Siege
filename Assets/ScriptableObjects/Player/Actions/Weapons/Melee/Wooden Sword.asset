@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   affinity: 0
   priority: 0
+  damageType: 0
   name: Wooden Sword
   description: The starter weapon for the Warrior class. Provides all that a beginner
     needs.
-  damage: 10
+  damage: 6
   castTime: 1
   level: 1
   cost: 0
