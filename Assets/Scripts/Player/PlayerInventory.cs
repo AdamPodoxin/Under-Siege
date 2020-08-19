@@ -8,6 +8,18 @@ public class PlayerInventory : MonoBehaviour
     public PlayerInventoryAction[] playerAbilities;
     public PlayerInventoryAction[] playerItems;
 
+    private void Start()
+    {
+        playerAttacks[0].ActionIndex = 0;
+        playerAttacks[1].ActionIndex = 1;
+
+        playerAbilities[0].ActionIndex = 0;
+        playerAbilities[1].ActionIndex = 1;
+
+        playerItems[0].ActionIndex = 0;
+        playerItems[1].ActionIndex = 1;
+    }
+
     public void UseAttack(int index)
     {
         playerAttacks[index].Use();

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Global : MonoBehaviour
 {
     public enum Affinity { Warrior, Assassin, Ranger, Sorcerer };
-    public enum ActionPriority { Primary, Secondary };
 
     public enum DamageType { Physical, Magic };
 

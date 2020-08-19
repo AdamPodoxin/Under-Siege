@@ -6,7 +6,6 @@ using UnityEngine;
 public class MeleeWeaponStats : ScriptableObject
 {
     public Global.Affinity affinity;
-    public Global.ActionPriority priority;
     public Global.DamageType damageType;
 
     public new string name;

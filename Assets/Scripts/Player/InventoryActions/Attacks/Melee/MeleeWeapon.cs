@@ -12,7 +12,6 @@ public class MeleeWeapon : PlayerInventoryAction
     protected PlayerCombat playerCombat;
     protected PlayerStats playerStats;
 
-    protected int weaponIndex;
     protected int damage;
 
     protected void OnEnable()
@@ -43,11 +42,6 @@ public class MeleeWeapon : PlayerInventoryAction
         }
     }
 
-    protected void Start()
-    {
-        weaponIndex = stats.priority.Equals(Global.ActionPriority.Primary) ? 0 : 1;
-    }
-
     public override void Use()
     {
         base.Use();
@@ -65,7 +59,7 @@ public class MeleeWeapon : PlayerInventoryAction
     protected IEnumerator UseCoroutine()
     {
         yield return new WaitForSeconds(stats.castTime);
-        playerCombat.FinishAttack(weaponIndex);
+        playerCombat.FinishAttack(ActionIndex);
     }
 
     public void FinishAnimation()

@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class PlayerInventoryAction : MonoBehaviour
 {
+    public int ActionIndex { get; set; }
+
     public virtual void Use() { }
 }
