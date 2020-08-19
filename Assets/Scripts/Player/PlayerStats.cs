@@ -8,6 +8,11 @@ public class PlayerStats : MonoBehaviour
     public Global.Affinity affinity;
     public int affinityLevel = 1;
 
+    public Sprite[] affinitySprites;
+    public Image crestImage;
+
+    [Space]
+
     public int health = 100;
     private int maxHealth;
 
@@ -40,6 +45,8 @@ public class PlayerStats : MonoBehaviour
 
         maxStrength = strength;
         targetStrengthFillAmount = (float)strength / maxStrength;
+
+        crestImage.sprite = affinitySprites[(int)affinity];
     }
 
     private void Update()
