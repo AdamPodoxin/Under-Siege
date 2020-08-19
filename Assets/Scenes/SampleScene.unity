@@ -1975,7 +1975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2792afcf6e0f08b45936adc8de8810b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  affinity: 3
+  affinity: 0
   affinityLevel: 1
   affinitySprites:
   - {fileID: 21300000, guid: 7660c9dad9763634e80b2dbf1a51e457, type: 3}

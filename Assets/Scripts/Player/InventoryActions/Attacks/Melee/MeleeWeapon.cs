@@ -12,7 +12,9 @@ public class MeleeWeapon : PlayerInventoryAction
     protected PlayerCombat playerCombat;
     protected PlayerStats playerStats;
 
-    protected int damage;
+    protected DamageInfo damageInfo;
+
+    protected bool canAttack = false;
 
     protected void OnEnable()
     {
@@ -36,15 +38,18 @@ public class MeleeWeapon : PlayerInventoryAction
         {
             playerStats = FindObjectOfType<PlayerStats>();
 
-            damage = stats.damage;
+            int damage = stats.damage;
             if (stats.affinity.Equals(Global.Affinity.Warrior) && playerStats.affinity.Equals(Global.Affinity.Warrior))
                 damage += Mathf.RoundToInt(Mathf.Pow(playerStats.affinityLevel - 1, 1.2f));
+            damageInfo = new DamageInfo(damage, stats.damageType);
         }
     }
 
     public override void Use()
     {
         base.Use();
+
+        canAttack = true;
 
         childObject.SetActive(true);
         swipeObject.SetActive(true);
@@ -64,12 +69,15 @@ public class MeleeWeapon : PlayerInventoryAction
 
     public void FinishAnimation()
     {
+        canAttack = false;
+
         childObject.SetActive(false);
         swipeObject.SetActive(false);
     }
 
     public void CollisionWithEnemy(Collider2D collision)
     {
-        collision.GetComponent<BasicEnemy>().TakeDamage(new DamageInfo(damage, stats.damageType));
+        if (canAttack)
+            collision.GetComponent<BasicEnemy>().TakeDamage(damageInfo);
     }
 }
