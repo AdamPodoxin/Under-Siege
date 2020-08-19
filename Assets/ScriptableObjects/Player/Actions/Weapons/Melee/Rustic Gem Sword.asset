@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   affinity: 0
   priority: 0
+  damageType: 1
   name: Rustic Gem Sword
   description: A mid-tier, powerful sword which challenges the efficiency of the
     Longsword.

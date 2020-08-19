@@ -11,7 +11,7 @@ public class BasicEnemy : MonoBehaviour
     private int maxHealth;
 
     public int damage = 2;
-    public GlobalEnums.DamageType damageType;
+    public Global.DamageType damageType;
     public float attackTime = 1.2f;
     public float walkSpeed = 2.6f;
 
@@ -102,7 +102,7 @@ public class BasicEnemy : MonoBehaviour
             }
 
             healthBarImage.fillAmount = (float)health / maxHealth;
-            statusValuePopupText.ShowText($"-{damageInfo.damage}", Color.red);
+            statusValuePopupText.ShowText($"-{damageInfo.damage}", Global.DamageTypeToColor(damageInfo.damageType));
         }
     }
 

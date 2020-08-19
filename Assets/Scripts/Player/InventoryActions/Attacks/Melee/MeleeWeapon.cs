@@ -38,14 +38,14 @@ public class MeleeWeapon : PlayerInventoryAction
             playerStats = FindObjectOfType<PlayerStats>();
 
             damage = stats.damage;
-            if (stats.affinity.Equals(GlobalEnums.Affinity.Warrior) && playerStats.affinity.Equals(GlobalEnums.Affinity.Warrior))
+            if (stats.affinity.Equals(Global.Affinity.Warrior) && playerStats.affinity.Equals(Global.Affinity.Warrior))
                 damage += Mathf.RoundToInt(Mathf.Pow(playerStats.affinityLevel - 1, 1.2f));
         }
     }
 
     protected void Start()
     {
-        weaponIndex = stats.priority.Equals(GlobalEnums.ActionPriority.Primary) ? 0 : 1;
+        weaponIndex = stats.priority.Equals(Global.ActionPriority.Primary) ? 0 : 1;
     }
 
     public override void Use()

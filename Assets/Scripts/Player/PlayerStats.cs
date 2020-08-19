@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    public GlobalEnums.Affinity affinity;
+    public Global.Affinity affinity;
     public int affinityLevel = 1;
 
     public int health = 100;
@@ -69,7 +69,7 @@ public class PlayerStats : MonoBehaviour
     public void TakeDamage(DamageInfo damageInfo)
     {
         ChangeHealth(-damageInfo.damage);
-        statusValuePopupText.ShowText($"-{damageInfo.damage}", Color.red);
+        statusValuePopupText.ShowText($"-{damageInfo.damage}", Global.DamageTypeToColor(damageInfo.damageType));
     }
 
     public void TakeHealing(int healing)

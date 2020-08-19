@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Melee Weapon", menuName = "ScriptableObjects/Player/Actions/Weapons/Melee")]
 public class MeleeWeaponStats : ScriptableObject
 {
-    public GlobalEnums.Affinity affinity;
-    public GlobalEnums.ActionPriority priority;
-    public GlobalEnums.DamageType damageType;
+    public Global.Affinity affinity;
+    public Global.ActionPriority priority;
+    public Global.DamageType damageType;
 
     public new string name;
     public string description;
