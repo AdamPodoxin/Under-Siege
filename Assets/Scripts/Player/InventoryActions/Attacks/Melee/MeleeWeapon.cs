@@ -39,9 +39,11 @@ public class MeleeWeapon : PlayerInventoryAction
             playerStats = FindObjectOfType<PlayerStats>();
 
             int damage = stats.damage;
-            if (stats.affinity.Equals(Global.Affinity.Warrior) && playerStats.affinity.Equals(Global.Affinity.Warrior))
+            if (stats.affinity.Equals(affinity) && playerStats.affinity.Equals(affinity))
                 damage += Mathf.RoundToInt(Mathf.Pow(playerStats.affinityLevel - 1, 1.2f));
             damageInfo = new DamageInfo(damage, stats.damageType);
+
+            affinity = stats.affinity;
         }
     }
 

@@ -16,7 +16,7 @@ public class PlayerStats : MonoBehaviour
     public int health = 100;
     private int maxHealth;
 
-    public ArmorInfo equippedArmor;
+    private ArmorInfo equippedArmor;
     private bool isUsingArmor = false;
 
     [Space]
@@ -128,7 +128,7 @@ public class PlayerStats : MonoBehaviour
         print("Player Died");
     }
 
-    private void ChangeStrength(int change)
+    public void ChangeStrength(int change)
     {
         strength += change;
 
