@@ -61,17 +61,6 @@ public class PlayerStats : MonoBehaviour
         targetStrengthFillAmount = (float)strength / maxStrength;
 
         crestImage.sprite = affinitySprites[(int)affinity];
-
-        //TEMP
-        StartCoroutine(ARMOR_TEST());
-    }
-
-    //TEMP
-    private IEnumerator ARMOR_TEST()
-    {
-        EquipArmor(new ArmorInfo(1000, 1f, Global.DamageType.Physical));
-        yield return new WaitForSeconds(1f);
-        StartCoroutine(ARMOR_TEST());
     }
 
     private void Update()
