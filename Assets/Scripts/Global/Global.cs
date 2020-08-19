@@ -26,3 +26,18 @@ public struct DamageInfo
         this.damageType = damageType;
     }
 }
+
+[System.Serializable]
+public struct ArmorInfo
+{
+    public int armorHealth;
+    public float resistPercent;
+    public Global.DamageType armorType;
+
+    public ArmorInfo(int armorHealth, float resistPercent, Global.DamageType armorType)
+    {
+        this.armorHealth = armorHealth;
+        this.resistPercent = resistPercent;
+        this.armorType = armorType;
+    }
+}
