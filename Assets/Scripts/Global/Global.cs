@@ -6,7 +6,7 @@ public class Global : MonoBehaviour
 {
     public enum Affinity { Warrior, Assassin, Ranger, Sorcerer };
 
-    public enum DamageType { Physical, Magic };
+    public enum DamageType { Physical, Magical };
 
     public static Color DamageTypeToColor(DamageType damageType)
     {
