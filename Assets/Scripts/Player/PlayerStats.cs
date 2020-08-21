@@ -95,7 +95,7 @@ public class PlayerStats : MonoBehaviour
         Global.DamageType damageType = damageInfo.damageType;
         int damageToPlayer = damageInfo.damage;
 
-        bool doesArmorBlockDamageType = damageType.Equals(equippedArmor.armorType);
+        bool doesArmorBlockDamageType = Global.CompareDamageTypes(damageType, equippedArmor.armorType);
         int damageToArmor = (isUsingArmor && doesArmorBlockDamageType) ? Mathf.CeilToInt(damageToPlayer * equippedArmor.resistPercent) : 0;
 
         damageToPlayer -= damageToArmor;
