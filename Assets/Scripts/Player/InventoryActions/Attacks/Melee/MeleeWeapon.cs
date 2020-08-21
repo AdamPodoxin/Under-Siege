@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeWeapon : PlayerInventoryAction
 {
     public MeleeWeaponStats stats;
+
+    public bool useSwipe = true;
 
     protected Animator animator, swipeAnimator;
     protected GameObject childObject, swipeObject;
@@ -13,6 +16,7 @@ public class MeleeWeapon : PlayerInventoryAction
     protected PlayerStats playerStats;
 
     protected DamageInfo damageInfo;
+    protected float castTime;
 
     protected bool canAttack = false;
 
@@ -37,13 +41,21 @@ public class MeleeWeapon : PlayerInventoryAction
         if (playerStats == null)
         {
             playerStats = FindObjectOfType<PlayerStats>();
+            affinity = stats.affinity;
 
             int damage = stats.damage;
-            if (stats.affinity.Equals(affinity) && playerStats.affinity.Equals(affinity))
-                damage += Mathf.RoundToInt(Mathf.Pow(playerStats.affinityLevel - 1, 1.2f));
-            damageInfo = new DamageInfo(damage, stats.damageType);
+            castTime = stats.castTime;
 
-            affinity = stats.affinity;
+            if (playerStats.affinity.Equals(Global.Affinity.Warrior) && affinity.Equals(Global.Affinity.Warrior))
+            {
+                damage += Mathf.RoundToInt(Mathf.Pow(playerStats.affinityLevel - 1, 1.2f));
+            }
+            else if (playerStats.affinity.Equals(Global.Affinity.Assassin) && affinity.Equals(Global.Affinity.Assassin))
+            {
+                castTime /= Mathf.Pow(playerStats.affinityLevel - 1, 0.25f);
+            }
+
+            damageInfo = new DamageInfo(damage, stats.damageType);
         }
     }
 
@@ -54,18 +66,27 @@ public class MeleeWeapon : PlayerInventoryAction
         canAttack = true;
 
         childObject.SetActive(true);
-        swipeObject.SetActive(true);
+
+        if (useSwipe)
+        {
+            swipeObject.SetActive(true);
+            swipeAnimator.Play("Melee_Swipe", -1, 0f);
+        }
+        else
+        {
+            swipeObject.SetActive(false);
+        }
+
         playerCombat.CanAct = false;
 
         animator.Play("Attack", -1, 0f);
-        swipeAnimator.Play("Melee_Swipe", -1, 0f);
 
         StartCoroutine(UseCoroutine());
     }
 
     protected IEnumerator UseCoroutine()
     {
-        yield return new WaitForSeconds(stats.castTime);
+        yield return new WaitForSeconds(castTime);
         playerCombat.FinishAttack(ActionIndex);
     }
 
@@ -74,7 +95,9 @@ public class MeleeWeapon : PlayerInventoryAction
         canAttack = false;
 
         childObject.SetActive(false);
-        swipeObject.SetActive(false);
+
+        if (useSwipe)
+            swipeObject.SetActive(false);
     }
 
     public void CollisionWithEnemy(Collider2D collision)
